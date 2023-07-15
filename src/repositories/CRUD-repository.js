@@ -51,6 +51,11 @@ class CrudRepostory{
                 id:id
             }
         });
+        
+        
+        if (!response[0]) {
+            throw new AppError('Not able to find the resource', status.NOT_FOUND);
+        }
         return response;
     }
 
