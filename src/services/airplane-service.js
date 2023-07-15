@@ -26,6 +26,35 @@ async function createAirplane(data) {
     }
 }
 
+async function getAirplanes()
+{
+    try{
+        const airplanes = await airplaneRepository.getAll();
+        return airplanes;
+    }
+    catch(arror){
+        throw new AppError('Cannot fetch data of all the Airplanes', status.INTERNAL_SERVER_ERROR);
+    }
+
+}
+
+async function getAirplane(id) {
+    try {
+        const airplanes = await airplaneRepository.get(id);
+        return airplanes;
+    }
+    catch (error) {
+        if (error.statusCode == status.NOT_FOUND)
+        {
+            throw new AppError('The airplane you requested is not present', status.NOT_FOUND)
+        }
+        throw new AppError('Cannot fetch data of all the Airplanes', status.INTERNAL_SERVER_ERROR);
+    }
+
+}
+
 module.exports ={
-    createAirplane
+    createAirplane,
+    getAirplanes,
+    getAirplane
 }
