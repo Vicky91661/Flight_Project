@@ -17,7 +17,7 @@ module.exports = {
         col: 'B',
         createdAt: new Date(),
         updatedAt: new Date()
-      },
+      }, 
       {
         airplaneId: 1,
         row: 1,

@@ -86,19 +86,19 @@ async function getAllFlights(query)
 
 // }
 
-// async function getFlight(id) {
-//     try {
-//         const flight = await flightRepository.get(id);
-//         return flight;
-//     }
-//     catch (error) {
-//         if (error.statusCode == status.NOT_FOUND) {
-//             throw new AppError('The flight you requested is not present', status.NOT_FOUND)
-//         }
-//         throw new AppError('Cannot fetch data of all the Flights', status.INTERNAL_SERVER_ERROR);
-//     }
+async function getFlight(id) {
+    try {
+        const flight = await flightRepository.get(id);
+        return flight;
+    }
+    catch (error) {
+        if (error.statusCode == status.NOT_FOUND) {
+            throw new AppError('The flight you requested is not present', status.NOT_FOUND)
+        }
+        throw new AppError('Cannot fetch data of all the Flights', status.INTERNAL_SERVER_ERROR);
+    }
 
-// }
+}
 // async function destroyFlight(id) {
 //     try {
 //         const response = await flightRepository.destroy(id);
@@ -111,9 +111,24 @@ async function getAllFlights(query)
 //         throw new AppError('Cannot delete the Flight', status.INTERNAL_SERVER_ERROR);
 //     }
 // }
+async function updateSeats(data)
+{
+    //console.log("The data of the flights",data);
 
+    try {
+        const response = await flightRepository.updateRemainingSeats(data.flightId,data.seats,data.dec)
+        return response;
+    } catch (error) {
+        if (error.statusCode == status.NOT_FOUND) {
+            throw new AppError('The flight you requested is not present', status.NOT_FOUND)
+        }
+        throw new AppError('Cannot Update the seats of the Flights', status.INTERNAL_SERVER_ERROR); 
+    }
+}
 
 module.exports = {
     createFlight,
-    getAllFlights   
+    getAllFlights,
+    getFlight,
+    updateSeats   
 }

@@ -51,7 +51,7 @@ function validateCreateRequest(req, res, next) {
             .status(status.BAD_REQUEST)
             .json(ErrorResponse);
     }
-    
+
     if (!req.body.price) {
         ErrorResponse.message = 'Something went wrong while creating flight';
         ErrorResponse.error = new AppError('price of flight not found in correct form in incoming request', status.BAD_REQUEST);
@@ -79,6 +79,20 @@ function validateCreateRequest(req, res, next) {
     next();
 }
 
+function validateUpdateSeatsRequest(req,res,next)
+{
+    if (!req.body.seats) {
+        ErrorResponse.message = 'Something went wrong while Updating flight';
+        ErrorResponse.error = new AppError('seats of flight not found in correct form in incoming request', status.BAD_REQUEST);
+
+        return res
+            .status(status.BAD_REQUEST)
+            .json(ErrorResponse);
+    }
+    next()
+}
+
 module.exports = {
-    validateCreateRequest
+    validateCreateRequest,
+    validateUpdateSeatsRequest
 }
